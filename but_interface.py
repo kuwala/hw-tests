@@ -12,7 +12,7 @@ from OSC import OSCClient, OSCMessage
 # The OSC Server must be started before this
 # I think ...
 
-cleint = OSCClient()
+client = OSCClient()
 client.connect( ("127.0.0.1", 57122) )
 
 def buttonPressed(butt):
@@ -45,7 +45,7 @@ BUT4 = 13
 BUT5 = 16
 
 #debounce delay in ms
-DEBOUNCE = 40
+DEBOUNCE = 5
 
 # Setup buttons as INPUTss
 # I am Using external PULL UP 10k Resistors
@@ -60,15 +60,21 @@ GPIO.setup(BUT5, GPIO.IN)
 
 
 def but1_pressed(channel):
-  print "button 1 pressed"
-  buttonPressed(BUT1)
+  if(GPIO.input(BUT1)==0):
+    print "button 1 pressed"
+    #buttonPressed(BUT1)
+  else:
+    print "button 1 released"
+    #buttonReleased(BUT1)
   
 def but2_pressed(channel):
-  print "button 2 pressed"
-  buttonPressed(BUT2)
+  if (GPIO.input(BUT2)==0):
+    print "button 2 pressed"
+  else:
+    print "button 2 released"
+
   
 def but1_released(channel):
-  print "button 1 released"
   buttonReleased(BUT1)
   
 def but2_released(channel):
@@ -79,10 +85,8 @@ def but2_released(channel):
 # Add events to detect for falling edge and rising edge
 # its for the button pressed down and released
 
-GPIO.add_event_detect(BUT1, GPIO.FALLING, callback=but1_pressed, bouncetime=DEBOUNCE)
-GPIO.add_event_detect(BUT1, GPIO.RISING, callback=but1_released, bouncetime=DEBOUNCE)
-GPIO.add_event_detect(BUT2, GPIO.FALLING, callback=but2_pressed, bouncetime=DEBOUNCE)
-GPIO.add_event_detect(BUT2, GPIO.RISING, callback=but2_released, bouncetime=DEBOUNCE)
+GPIO.add_event_detect(BUT1, GPIO.BOTH, callback=but1_pressed, bouncetime=DEBOUNCE)
+GPIO.add_event_detect(BUT2, GPIO.BOTH, callback=but2_pressed, bouncetime=DEBOUNCE)
 # add same for 3 other buttons
 
 try:
