@@ -15,7 +15,7 @@ BUT1 = 5
 BUT2 = 6
 BUT3 = 12
 BUT4 = 13
-BUT5 = 15
+BUT5 = 16
 BUT6 = 19
 
 GPIO.setmode(GPIO.BCM)
@@ -59,7 +59,6 @@ def sendOSCMessage(pin, value):
   else:
     obj = OSCMessage("/b/r")
   obj.append(int(pin))
-  obj.append(int(value))
   client.send(obj)
 
 
