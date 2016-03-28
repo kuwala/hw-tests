@@ -50,7 +50,7 @@ GPIO.setup(BUT11, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 DEBOUNCE = 40
 
 client = OSCClient()
-client.connect( ("127.0.0.1", 57122) )
+#client.connect( ("127.0.0.1", 57122) )
 
 def threadCallBack(channel):
   value = GPIO.input(channel)
@@ -89,19 +89,19 @@ def sendOSCMessage(pin, value):
   else:
     obj = OSCMessage("/b/r")
   obj.append(int(pin))
-  client.send(obj)
+  #client.send(obj)
 
 
 def buttpressed(butt):
   obj = OSCMessage("/b/p")
   obj.append(int(butt))
   obj.append(1)
-  client.send(obj)
+  #client.send(obj)
 
 def buttreleased(butt):
   obj = OSCMessage("/b/r")
   obj.append(2)
-  client.send(obj)
+  #client.send(obj)
 
 try:
   print "Ctrl-C to exit"
